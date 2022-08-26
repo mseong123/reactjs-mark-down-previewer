@@ -1,0 +1,88 @@
+body {
+  overflow:hidden;
+  
+}
+
+a {
+  color:orange;
+}
+img {
+  max-width:100%;
+  
+}
+.header {
+  height:15%;
+  padding:5px;
+  padding-left:15px;
+  width:100%;
+}
+.header > img {
+  vertical-align:top;
+  height:35px;
+}
+.header > p {
+  display:inline-block;
+  margin-left:15px;
+  font-size:15px;
+  font-weight:700;
+  vertical-align:bottom;
+}
+.editor{
+  height:50vh;
+  padding:0;
+  overflow:auto;
+  background-color:white;
+  font-family: 'Source Code Pro', monospace;
+}
+#editor {
+  background-color:transparent;
+  overflow:hidden;
+  border:none;
+  outline:none;
+  resize:none;
+  width:100%;
+  height:100%;
+  padding-left:15px;
+}
+.previewer {
+  height:50vh;
+  background-color:transparent;
+  overflow:auto;
+  padding:0;
+  background-image: url("https://raw.githubusercontent.com/mseong123/assets/master/MarkDownPreviewer/background.jpg");
+  color:white;
+}
+#preview {
+  padding-left:15px;
+  height:85%;
+}
+
+@media (min-width:768px) {
+  .header {
+      height:15%;
+      padding:2%;
+      padding-left:15px;
+  }
+  .header > img {
+      font-size:79px;
+  }
+  .header > p {
+      font-size:25px;
+  }
+  .editor,
+  .previewer{
+      height:100vh;
+  }
+  #editor {
+      height:85%;
+  }
+  #preview {
+      height:85%;
+  }
+}
+
+
+
+
+
+

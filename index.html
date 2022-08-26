@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ReactJS - Mark Down Previewer</title>
+        <meta name="description" content="ReactJS-Mark Down Previewer">
+        <meta name="author" content="Mseong">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,700">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="stylesheet/style.css">
+    </head>
+    <body>
+        <div id="ms" class="container-fluid"></div>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.1/marked.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+        <script type="text/babel">
+
+        let initialText=
+`
+# Markdown-to-HTML Parser
+<sub>Created By Mseong</sub>
+## Feel Free to Experiment!
+### *Here's some examples*
+
+
+
+Here's a <a href='https://mseong.my' target='_blank'>Link</a>
+
+Here's some block of codes: 
+\`\`\`
+function Previewer (props) {
+return (
+    <div id="preview" dangerouslySetInnerHTML={{__html:props.html}}></div>
+)
+}
+\`\`\`
+
+
+
+Here's some list items (ordered and unordered):
+1. Number 1
+2. Number 2
+3. Number 3
+- Unordered
+- Unordered
+- Unordered
+
+> Some BLOCKQUOTES!  
+> More BLOCKQUOTES!!
+
+Images as follow:
+![REACT Logo](https://cdn-images-1.medium.com/max/800/0*1p4U99DAhsOHqX-m.jpg)  
+
+Last but not LEAST, **BOLDED TEXT**
+`
+
+            function markdownConverter(text) {
+                console.log(`# Markdown-to-HTML Parser`);
+                console.log(initialText);
+
+                console.log(marked(`# Markdown-to-HTML Parser`))
+                console.log(marked(initialText))
+                return ({
+                    markdown:text,
+                    html:marked(text)
+                })
+            }
+            
+
+            class Editor extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+            componentDidMount() {
+                const textarea=document.getElementById("editor");
+                textarea.style.height=textarea.scrollHeight+"px";
+            }
+            render() {
+                return (
+                    <div className="col-sm-6 editor">
+                    <header className="header">
+                        <img src="https://raw.githubusercontent.com/mseong123/assets/master/MarkDownPreviewer/markdown.png" alt="html5logo"></img>
+                        <p>ENTER MARKDOWN TEXT</p>
+                    </header>
+                    <textarea id="editor" onChange={(e)=>{
+                        this.props.handleChange(e.target.value);
+                        e.target.style.height=e.target.scrollHeight+"px";
+                        }
+                    } 
+                    value={this.props.markdown}>
+                    </textarea>
+                </div>
+                )
+                }
+            }
+            function Previewer (props) {
+            
+            return (
+                <div className="col-sm-6 previewer ">
+                <header className="header">
+                    <img src="https://raw.githubusercontent.com/mseong123/assets/master/MarkDownPreviewer/html5logo2.png" alt="html5logo"></img>
+                    <p>HTML PREVIEW</p>
+                </header>
+                <div id="preview" className="clearfix" dangerouslySetInnerHTML={{__html:props.html}}></div>
+                </div>
+                )
+            }
+
+
+            class MarkDownPreviewerApp extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state=markdownConverter(initialText);
+                    this.handleChange=this.handleChange.bind(this);
+                }
+
+                handleChange (text) {
+                    this.setState(markdownConverter(text));
+                }
+
+                render()  {
+                    return(
+                        <div className="row">
+                            <Editor markdown={this.state.markdown} handleChange={this.handleChange}/>
+                            <Previewer html={this.state.html}/>
+                        </div>
+                        )
+                }
+            }
+            ReactDOM.render(<MarkDownPreviewerApp/>,document.getElementById("ms"))
+            
+        </script>
+    </body>
+</html>
